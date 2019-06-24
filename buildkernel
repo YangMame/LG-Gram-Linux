@@ -1,0 +1,53 @@
+#!/bin/bash
+
+# Just for my own use
+
+KERNEL_VERSION="$(readlink /usr/src/linux | grep -o '[0-9].*')"
+KERNEL_DIR="/usr/src/linux-${KERNEL_VERSION}"
+KERNEL_CMDLINE="dolvm crypt_root=UUID=66665183-23b4-433d-8d2c-748f406b274a resume=/dev/mapper/gentoo-swap root=/dev/mapper/gentoo-root root_trim=yes quite loglevel=0 pci=nommconf"
+KERNEL="kernel-LG-Gram-x86_64-${KERNEL_VERSION}"
+INITRAMFS="initramfs-LG-Gram-x86_64-${KERNEL_VERSION}"
+KERNEL_CONFIG="/etc/kernels/config"
+
+BOOTCTL_CONF="/boot/loader/entries/gentoo.conf"
+
+build(){
+    cd "${KERNEL_DIR}"
+    if [ -f .config ];then
+    	echo "Use kernel dir's .config file ?(ENTER to use or n to use $KERNEL_CONFIG"
+	read ifuseexistconfig
+	if [ "$ifuseexistconfig" == "n" ];then
+		cp -v "${KERNEL_CONFIG}" .config
+	fi
+    else
+    	cp -v "${KERNEL_CONFIG}" .config
+    fi
+
+    make oldconfig
+    cp -v .config /etc/kernels/kernel-config-x86_64-${KERNEL_VERSION}
+    cp -v .config /etc/kernels/config
+    genkernel all
+}
+
+update(){
+    cat << EOF > ${BOOTCTL_CONF}
+title   Gentoo Linux
+linux   /${KERNEL}
+initrd  /${INITRAMFS}
+options ${KERNEL_CMDLINE}
+EOF
+	
+    bootctl update --path=/boot
+}
+
+rebuildmodule(){
+    emerge @module-rebuild
+}
+
+main(){
+    build
+    update
+    rebuildmodule
+}
+
+main
