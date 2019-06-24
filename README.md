@@ -14,4 +14,4 @@ dotfiles for my lg gram 13z990a
 
 # didn't work
 
-* Some hotkeys (F1 can set as start systemdsettings, F5 have no idea now, F9 can set as redshift)
+* Some hotkeys (F1 can set as start systemsettings, F5 have no idea now, F9 can set as start redshift)
