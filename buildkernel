@@ -1,6 +1,7 @@
 #!/bin/bash
 
 # Just for my own use
+set -e
 
 KERNEL_VERSION="$(readlink /usr/src/linux | grep -o '[0-9].*')"
 KERNEL_DIR="/usr/src/linux-${KERNEL_VERSION}"
@@ -26,7 +27,7 @@ build(){
     make oldconfig
     cp -v .config /etc/kernels/kernel-config-x86_64-${KERNEL_VERSION}
     cp -v .config /etc/kernels/config
-    genkernel all
+    genkernel all 
 }
 
 update(){

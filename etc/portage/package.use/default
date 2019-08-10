@@ -11,7 +11,24 @@ app-office/libreoffice java
 
 app-crypt/pinentry gnome-keyring
 
+dev-libs/openssl sslv3
+
+# Geary
+dev-libs/folks eds
+gnome-extra/evolution-data-server vala
+
+# Qemu
+app-emulation/qemu static-user
+dev-libs/glib static-libs
+sys-libs/zlib static-libs
+sys-apps/attr static-libs
+dev-libs/libpcre static-libs
+
+# Atom
+media-libs/libvpx postproc
+
 # Telegram
+net-im/telegram-desktop clang
 x11-libs/libxkbcommon static-libs
 
 # pulseaudio-modules-bt
