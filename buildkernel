@@ -14,7 +14,7 @@ BOOTCTL_CONF="/boot/loader/entries/gentoo.conf"
 
 build(){
     cd "${KERNEL_DIR}"
-    if [ -f .config ];then
+    if ([ -f .config ] && ! diff .config ${KERNEL_CONFIG});then
     	echo "Use kernel dir's .config file ?(ENTER to use or n to use $KERNEL_CONFIG"
 	read ifuseexistconfig
 	if [ "$ifuseexistconfig" == "n" ];then
