@@ -5,16 +5,17 @@ set -e
 
 KERNEL_VERSION="$(readlink /usr/src/linux | grep -o '[0-9].*')"
 KERNEL_DIR="/usr/src/linux-${KERNEL_VERSION}"
-KERNEL_CMDLINE="dolvm crypt_root=UUID=66665183-23b4-433d-8d2c-748f406b274a resume=/dev/mapper/gentoo-swap root=/dev/mapper/gentoo-root root_trim=yes quite loglevel=0 pci=nommconf"
+KERNEL_CMDLINE="dolvm crypt_root=UUID=66665183-23b4-433d-8d2c-748f406b274a resume=/dev/mapper/gentoo-swap root=/dev/mapper/gentoo-root root_trim=yes quite loglevel=0 intel_pstate=enable systemd.legacy_systemd_cgroup_controller=yes pci=nommconf swcrypto=1"
 KERNEL="kernel-LG-Gram-x86_64-${KERNEL_VERSION}"
 INITRAMFS="initramfs-LG-Gram-x86_64-${KERNEL_VERSION}"
-KERNEL_CONFIG="/etc/kernels/config"
+KERNEL_CONFIG_DIR="/etc/kernels"
+KERNEL_CONFIG="${KERNEL_CONFIG_DIR}/config"
 
 BOOTCTL_CONF="/boot/loader/entries/gentoo.conf"
 
 build(){
     cd "${KERNEL_DIR}"
-    if ([ -f .config ] && ! diff .config ${KERNEL_CONFIG});then
+    if [ -f .config ];then
     	echo "Use kernel dir's .config file ?(ENTER to use or n to use $KERNEL_CONFIG"
 	read ifuseexistconfig
 	if [ "$ifuseexistconfig" == "n" ];then
@@ -25,8 +26,8 @@ build(){
     fi
 
     make oldconfig
-    cp -v .config /etc/kernels/kernel-config-x86_64-${KERNEL_VERSION}
-    cp -v .config /etc/kernels/config
+    cp -v .config ${KERNEL_CONFIG_DIR}/$(date +%y-%m-%d-%H-%M)-kernel-config-x86_64-${KERNEL_VERSION}
+    cp -v .config ${KERNEL_CONFIG}
     genkernel all 
 }
 
@@ -48,7 +49,7 @@ rebuildmodule(){
 main(){
     build
     update
-    rebuildmodule
+    #rebuildmodule
 }
 
 main

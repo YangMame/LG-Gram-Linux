@@ -1,6 +1,7 @@
 dev-lang/python sqlite
 sys-apps/dbus user-session
 sys-kernel/gentoo-sources experimental symlink
+sys-kernel/ck-sources symlink experimental
 app-portage/layman sync-plugin-portage
 net-wireless/wpa_supplicant -qt5
 app-i18n/fcitx gtk3 opencc
@@ -8,14 +9,39 @@ app-admin/keepassxc yubikey autotype network browser
 net-misc/remmina ssh rdp vnc
 app-editors/vim lua luajit perl ruby terminal
 app-office/libreoffice java
-
+sys-apps/systemd cgroup-hybrid
 app-crypt/pinentry gnome-keyring
-
 dev-libs/openssl sslv3
+dev-db/sqlite secure-delete
+games-roguelike/cataclysm-dda sound
+kde-misc/kdeconnect mousepad -bluetooth # can't not stop to connect everything with bluetooth...
+
+# dde-meta
+dde-base/dde-meta turbo
+>=x11-libs/vte-0.56.4 vala
+>=media-video/mpv-0.30.0 libmpv
+
+# 
+dev-db/postgresql kerberos
+
+# powerline-fonts
+media-fonts/powerline-fonts dejavusansmono hack notomono ubuntumono *
+
+# Mysql-workbench
+net-libs/libssh server
+
+# Gimp
+media-libs/babl introspection
 
 # Geary
 dev-libs/folks eds
 gnome-extra/evolution-data-server vala
+app-text/gspell vala
+
+# virt-manager
+net-misc/spice-gtk usbredir
+app-emulation/libvirt fuse libssh nfs virt-network virtualbox wireshark-plugins
+net-dns/dnsmasq script
 
 # Qemu
 app-emulation/qemu static-user
@@ -28,11 +54,12 @@ dev-libs/libpcre static-libs
 media-libs/libvpx postproc
 
 # Telegram
-net-im/telegram-desktop clang
+#net-im/telegram-desktop clang
 x11-libs/libxkbcommon static-libs
+media-libs/rlottie telegram-patches
 
 # pulseaudio-modules-bt
-media-sound/pulseaudio -bluetooth
+media-sound/pulseaudio -bluetooth dbus
 
 # Qtox
 media-video/ffmpeg webp v4l

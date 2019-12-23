@@ -3,3 +3,5 @@
 # Lars Wendler <polynomial-c@gentoo.org> (2018-12-28)
 # Masked while being tested and reverse deps aren't fully compatible
 =dev-libs/openssl-1.1.1b-r2
+dev-util/webstorm
+dev-util/idea-ultimate

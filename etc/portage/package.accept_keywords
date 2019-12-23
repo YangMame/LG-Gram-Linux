@@ -1,2 +1,4 @@
-=net-misc/networkmanager-wireguard-9999 **
+# move net-misc/networkmanager-wireguard net-vpn/networkmanager-wireguard
+=net-vpn/networkmanager-wireguard-9999 **
 =media-sound/pulseaudio-modules-bt-9999 **
+=media-libs/libtgvoip-9999 **
